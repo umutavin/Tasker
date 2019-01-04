@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block title %}Register{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+	<div class="container">
+		<form class="form-horizontal" action="{{ url_for('register_page')}}" method="POST">
+			<fieldset>
+				<!-- Form Name -->
+				<legend>Register User</legend>
+
+				<!-- Text input-->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="username">Username</label>
+				  <div class="col-md-4">
+				  <input id="username" name="username" value="" type="text" placeholder="" class="form-control input-md" required="">
+
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="email">Email</label>
+				  <div class="col-md-4">
+				  <input id="email" name="email" value="" type="text" placeholder="" class="form-control input-md" required="">
+
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="name">Name</label>
+				  <div class="col-md-4">
+				  <input id="name" name="name" value="" type="text" placeholder="" class="form-control input-md" required="">
+
+				  </div>
+				</div>
+
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="surname">Surname</label>
+				  <div class="col-md-4">
+				  <input id="surname" name="surname" value="" type="text" placeholder="" class="form-control input-md" required="">
+
+				  </div>
+				</div>
+
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="password">Password</label>
+				  <div class="col-md-4">
+				  <input id="password" name="password" type="password" placeholder="" class="form-control input-md" required="">
+				  </div>
+				</div>
+
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="button1idFFF"></label>
+				  <div class="col-md-8">
+				    <button id="button1idFFF" name="add" class="btn btn-success">Register</button>
+				    <button id="button2id" name="cancel" class="btn btn-danger">Cancel</button>
+				  </div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %} Projects {% endblock %}
+{% block content %}
+
+    <h1 style="font-size: 30px">Project List</h1>
+    {% if projects %}
+        <br><br>
+        <table id = "dataTable" class="table table-bordered dataTable" role="grid" aria-describedby="dataTable_info" style="width:100%" cellspacing="0">
+            <thead>
+            <tr role="row">
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20%;" aria-label="Project Name">Project Name</th>
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20%;" aria-label="Project Status">Project Status</th>
+            </tr>
+            </thead>
+            {% for item in projects %}
+                <tr>
+                    <td>
+                        <a href="{{ url_for('project_details', projectId=item[0]) }}">
+                            {{ item[1] }}
+                        </a><br>
+                    </td>
+                    <td>
+                        {%  if item[3] == 0 %}
+                            Not Started<br>
+                        {%  elif item[3] == 1 %}
+                            Ongoing<br>
+                        {%  elif item[3] == 2 %}
+                            Finished<br>
+                        {%  endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <br>
+        <p>There are no completed projects.</p>
+    {% endif %}
+{% endblock %}

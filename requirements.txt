@@ -1,0 +1,6 @@
+Flask
+psycopg2
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-HTTPAuth
+requests

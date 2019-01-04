@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block title %} Team Details {% endblock %}
+{% block content %}
+    {%  if team %}
+    <h1>Details of {{ team[0][1] }} </h1>
+    <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#AddMember">Add Member</button>
+    <div class="modal fade" id="AddMember" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Member</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ url_for('team_details', teamId = team[0][0] )}}" name="AddMember" role="form" required>
+                        <input type="hidden" name="form-name" value="AddMember">
+                        <input type="hidden" name="teamId" value="{{ team[0][0] }}">
+                        <div class="form-group">
+                            <label for="UserName">User Name</label>
+                            <select class="selectpicker" data-size="2" name="id">
+                                {% for id, username in users %}
+                                <option value={{id}}>{{username}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <button type="reset">Reset</button>
+                        <button type="submit" formmethod="POST">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+	<br>
+    <table id = "dataTable" class="table table-bordered dataTable" role="grid" aria-describedby="dataTable_info" style="width:100%" cellspacing="0">
+        <thead>
+            <tr role="row">
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 15%;" aria-label="Username">Username</th>
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 15%;" aria-label="Email">Email</th>
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 15%;" aria-label="Name">Name</th>
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 15%;" aria-label="Surname">Surname</th>
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 5%;" aria-label="Surname"></th>
+            </tr>
+            </thead>
+            {% for id, username, email, name, surname in teammembers %}
+                <tr>
+                    <td>{{ username }}</td>
+                    <td>{{ email }}</td>
+                    <td>{{ name }}</td>
+                    <td>{{ surname }}</td>
+                    <td style="text-align: center">
+                        <a href="{{ url_for('remove_member_from_team', relation_id=id, team_id=team[0][0]) }}"><i class="fa fa-fw fa-times"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+    </table>
+	<br>
+
+
+
+    {% endif %}
+{% endblock %}

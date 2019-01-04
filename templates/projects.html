@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block title %} Projects {% endblock %}
+{% block content %}
+
+    <h1 style="font-size: 30px">Project List</h1>
+    <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#AddProject">Add Project</button>
+    <div class="modal fade" id="AddProject" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Project</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ url_for('projects_page') }}" name="AddProject" role="form" required>
+                        <input type="hidden" name="form-name" value="AddProject">
+                        <div class="form-group">
+                            <label for="ProjectName">Project Name</label>
+                            <input class="form-control" name="ProjectName" placeholder="Enter Project Name" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ProjectBudget">Project Budget</label>
+                            <input class="form-control" name="ProjectBudget" placeholder="Enter Project Budget" type="number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ProjectStatus">Project Status</label><br>
+                            <input name="ProjectStatus" type="radio" value="0" checked>Not Started<br>
+                            <input name="ProjectStatus" type="radio" value="1">Ongoing<br>
+                        </div>
+                        <div class="form-group">
+                            <label for="ProjectScheduledTime">Scheduled Time</label>
+                            <input class="form-control" name="ProjectScheduledTime" type="date" value="date" required><br>
+                        </div>
+                        <div class="form-group">
+                            <label for="ProjectDescription">Project Description</label>
+                            <input class="form-control" name="ProjectDescription" placeholder="Enter Description" type="text">
+                        </div>
+                        <button type="reset">Reset</button>
+                        <button type="submit" formmethod="POST">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if projects %}
+        <br><br>
+        <table id = "dataTable" class="table table-bordered dataTable" role="grid" aria-describedby="dataTable_info" style="width:100%" cellspacing="0">
+            <thead>
+            <tr role="row">
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20%;" aria-label="Project Name">Project Name</th>
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20%;" aria-label="Project Status">Project Status</th>
+            </tr>
+            </thead>
+            {% for item in projects %}
+                <tr>
+                    <td>
+                        <a href="{{ url_for('project_details', projectId=item[0]) }}">
+                            {{ item[1] }}
+                        </a><br>
+                    </td>
+                    <td>
+                        {%  if item[3] == 0 %}
+                            Not Started<br>
+                        {%  elif item[3] == 1 %}
+                            Ongoing<br>
+                        {%  elif item[3] == 2 %}
+                            Finished<br>
+                        {%  endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <br>
+        <p>There are no projects.</p>
+    {% endif %}
+{% endblock %}
